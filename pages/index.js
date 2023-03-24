@@ -19,6 +19,10 @@ export default function Home() {
   const newEmailRef = useRef('')
   const newPasswordRef = useRef('')
 
+  const newTitleRef = useRef('')
+  const newContentRef = useRef('')
+  const newContentTypeRef = useRef('')
+
   return (
     <>
       <Head>
@@ -143,6 +147,18 @@ export default function Home() {
             console.log({body})
             axios.post('/api/user/register', body).then(res=>{}).catch(err=>{console.log(err)})
              }}>Register</button>
+          <br/><br/><br/>
+          <input ref={newTitleRef} placeholder={'Title'} /><br/>
+          <input ref={newContentRef} placeholder={'Content'} /><br/>
+          <input ref={newContentTypeRef} placeholder={'Type'} /><br/>
+          <button onClick={async ()=>{
+            let body = { title: newTitleRef.current.value, content: newContentRef.current.value, type: newContentTypeRef.current.value,
+              accessToken : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFqYSBSYWkiLCJlbWFpbCI6InJhenp6LnJhaUBnbWFpbC5jb20iLCJwYXNzd29yZCI6InJyciIsInVzZXJJZCI6ImU1Y2Q2MmY2LWE0NDUtNDlhYi1hNTBmLTVmMGQ4MTRlNjZjNCIsImlhdCI6MTY3OTY4MzI1OX0.KXQ1IsZlVvBzVB1rfk4kJIQRQjSyVr-PJcibQdGknTg'
+            }
+            console.log({body})
+            axios.post('/api/blog', body).then(res=>{}).catch(err=>{console.log(err)})
+             }}>Create Blog</button>
+          <br/><br/><br/>
         </div>
       </main>
     </>
