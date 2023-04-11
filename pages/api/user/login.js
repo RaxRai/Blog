@@ -18,12 +18,12 @@ export default async function handler(req, res) {
 
     const decoded = jwt.verify(result?.accessToken, process.env.JWT_SECRET);
 
-    const otp = await prisma.oTPs.create({
-      data: {
-        userId: userId,
-        otp: '' + Math.floor(100000 + Math.random() * 900000)
-      }
-    })
+    // const otp = await prisma.oTPs.create({
+    //   data: {
+    //     userId: userId,
+    //     otp: '' + Math.floor(100000 + Math.random() * 900000)
+    //   }
+    // })
 
     if(decoded.password === password){
       res.status(200).json(result)
