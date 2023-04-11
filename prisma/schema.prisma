@@ -32,6 +32,7 @@ model User {
   name              String?
   Blogs             Blogs[]
   accessToken       String?
+  isActive          Boolean? @default(false)
 }
 
 model Blogs {
@@ -43,4 +44,12 @@ model Blogs {
   title             String
   content           String?
   type              String?
+}
+
+model OTPs {
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime?
+  userId            String?
+  otp               String?
 }

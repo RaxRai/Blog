@@ -7,22 +7,13 @@ import styles from '@/styles/Home.module.css'
 import { useRef } from 'react'
 
 import axios from 'axios'
+import Login from '@/components/login';
+import LoginProvider from '@/components/contexts/loginProvider';
+import Layout from '@/components/layout/'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-
-  const emailRef = useRef('')
-  const passwordRef = useRef('')
-
-  const newNameRef = useRef('')
-  const newEmailRef = useRef('')
-  const newPasswordRef = useRef('')
-
-  const newTitleRef = useRef('')
-  const newContentRef = useRef('')
-  const newContentTypeRef = useRef('')
-
   return (
     <>
       <Head>
@@ -31,136 +22,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-          <input ref={emailRef} placeholder={'email'} /><br/>
-          <input ref={passwordRef} placeholder={'password'} /><br/>
-
-          <button onClick={async ()=>{ axios.post('/api/user/login', { email: emailRef.current.value, password: passwordRef.current.value}).then(res=>{}).catch(err=>{console.log(err)})
-          }}>Login</button>
-          <br/><br/><br/>
-          <input ref={newNameRef} placeholder={'name'} /><br/>
-          <input ref={newEmailRef} placeholder={'email'} /><br/>
-          <input ref={newPasswordRef} placeholder={'password'} /><br/>
-          <button onClick={async ()=>{
-            let body = {name: newNameRef.current.value, email: newEmailRef.current.value, password: newPasswordRef.current.value}
-            console.log({body})
-            axios.post('/api/user/register', body).then(res=>{}).catch(err=>{console.log(err)})
-             }}>Register</button>
-          <br/><br/><br/>
-          <input ref={newTitleRef} placeholder={'Title'} /><br/>
-          <input ref={newContentRef} placeholder={'Content'} /><br/>
-          <input ref={newContentTypeRef} placeholder={'Type'} /><br/>
-          <button onClick={async ()=>{
-            let body = { title: newTitleRef.current.value, content: newContentRef.current.value, type: newContentTypeRef.current.value,
-              accessToken : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFqYSBSYWkiLCJlbWFpbCI6InJhenp6LnJhaUBnbWFpbC5jb20iLCJwYXNzd29yZCI6InJyciIsInVzZXJJZCI6ImU1Y2Q2MmY2LWE0NDUtNDlhYi1hNTBmLTVmMGQ4MTRlNjZjNCIsImlhdCI6MTY3OTY4MzI1OX0.KXQ1IsZlVvBzVB1rfk4kJIQRQjSyVr-PJcibQdGknTg'
-            }
-            console.log({body})
-            axios.post('/api/blog', body).then(res=>{}).catch(err=>{console.log(err)})
-             }}>Create Blog</button>
-          <br/><br/><br/>
-        </div>
-      </main>
+      <LoginProvider >
+        <Layout />
+      </LoginProvider>
     </>
   )
 }
