@@ -9,6 +9,8 @@ import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import { LoginContext } from '../contexts/loginProvider';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -49,10 +51,18 @@ export default function Login() {
     const login = async () => {
         axios.post('/api/user/login', { email: loginData.email, password: loginData.password })
         .then(res => { 
-          setText({ user: res.data , route: '/user'})
-          localStorage.setItem( 'accessToken' , JSON.stringify(res.data) )
+
+          setTimeout(()=>{
+            setText({ user: res.data , route: '/user'})
+            localStorage.setItem( 'accessToken' , JSON.stringify(res.data) );
+          },2000)
+
+          toast.success('Login Successfull', { autoClose: 2000 })
         })
-        .catch(err => { console.log(err) })
+        .catch(err => { 
+          console.log(err);
+          toast.error('Please check email/password', { autoClose: 2000 })
+        })
     }
   return (
     <CssVarsProvider>
@@ -98,7 +108,7 @@ export default function Login() {
             />
           </FormControl>
 
-          <Button sx={{ mt: 1 /* margin top */ }} onClick={login}>Log in</Button>
+          <Button sx={{ mt: 1 }} onClick={login}>Log in</Button>
           <Typography
             endDecorator={<Link onClick={()=>{
                 setText({user : null, route: '/register'})
@@ -110,6 +120,7 @@ export default function Login() {
           </Typography>
         </Sheet>
       </main>
+      <ToastContainer />
     </CssVarsProvider>
   );
 }

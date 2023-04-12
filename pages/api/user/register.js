@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
   }catch(err){
     console.log(err)
-    res.status(401).json({ gadbad: 'giyo' })
+    res.status(401).json({ msg: 'Something went wrong!' })
   }
 
 }

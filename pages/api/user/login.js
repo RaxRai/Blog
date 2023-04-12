@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
   }catch(err){
     console.log(err.error)
-    res.status(401).json({ err: 'Email or password wrong'})
+    res.status(401).json({ msg: 'Email or password wrong!'})
   }
 
 

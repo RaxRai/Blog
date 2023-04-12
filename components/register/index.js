@@ -9,6 +9,8 @@ import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import { LoginContext } from '../contexts/loginProvider';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -49,7 +51,15 @@ export default function Register() {
     const register = async () => {
         let body = {name: loginData.name, email: loginData.email, password: loginData.password }
         console.log({body})
-        axios.post('/api/user/register', body).then(res=>{}).catch(err=>{console.log(err)})
+        axios.post('/api/user/register', body).then(res=>{
+          toast.success('Successfully registered, please login', { autoClose: 2000 })
+          setTimeout(()=>{
+            setText({user : null, route: '/login'})
+          },2000)
+        }).catch(err=>{
+          console.log(err);
+          toast.error('Something went wrong!', { autoClose: 2000 })
+        })
     }
   return (
     <CssVarsProvider>
@@ -124,6 +134,7 @@ export default function Register() {
             Have an account?
           </Typography>
         </Sheet>
+        <ToastContainer />
       </main>
     </CssVarsProvider>
   );
